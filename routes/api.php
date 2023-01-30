@@ -13,3 +13,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //Signup
 Route::post('auth/signup', [ApiTokenController::class, 'signup']);
+
+//Login
+Route::post('auth/login', [ApiTokenController::class, 'login']);
