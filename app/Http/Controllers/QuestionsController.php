@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Questions;
+use App\Models\Answers;
 
 class QuestionsController extends Controller
 {
@@ -26,6 +27,15 @@ class QuestionsController extends Controller
             'answers' => $request->answers,
             'user_id' => $request->user_id,
         ]);
+
+        for($i = 0; $i < count($request->answers); $i++){
+            $answers = Answers::create([
+                'title' => $request->answers[$i],
+                'answer_id' => $i,
+                'question_id' => $question->id,
+                'nb_vote' => 0
+            ]);
+        }
 
         //STATUS 201, QUESTION CREATED
         return response()->json([
