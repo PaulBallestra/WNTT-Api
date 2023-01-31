@@ -46,7 +46,6 @@ class ApiTokenController extends Controller
         ], 201);
     }
 
-
     public function login(Request $request)
     {
         //Validation champs 422
