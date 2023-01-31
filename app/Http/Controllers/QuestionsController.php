@@ -17,7 +17,7 @@ class QuestionsController extends Controller
         //422
         $request->validate([
             'title' => 'required',
-            'answers' => 'required',
+            'answers' => 'required|array|min:2|max:5',
             'user_id' => 'required',
         ]);
 

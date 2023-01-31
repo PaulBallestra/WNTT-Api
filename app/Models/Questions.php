@@ -14,4 +14,8 @@ class Questions extends Model
         'answers',
         'user_id'
     ];
+
+    protected $casts = [
+        'answers' => 'array'
+    ];
 }

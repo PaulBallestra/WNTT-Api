@@ -17,7 +17,7 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->text('title');
-            $table->text('answers');
+            $table->json('answers');
             $table->timestamps();
         });
     }
