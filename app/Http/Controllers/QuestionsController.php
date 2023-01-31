@@ -14,6 +14,7 @@ class QuestionsController extends Controller
     {
         //401 SANCTUM
 
+        //422
         $request->validate([
             'title' => 'required',
             'answers' => 'required',
@@ -41,5 +42,16 @@ class QuestionsController extends Controller
             ]
         ], 201);
 
+    }
+
+    //Show All Questions
+    public function showAll()
+    {
+        //401 UNAUTHENTICATED GÉRÉ PAR SANCTUM
+        $questions = Questions::orderBy('created_at', 'DESC')->get();
+
+        return response()->json([
+            'questions' => $questions
+        ], 201);
     }
 }

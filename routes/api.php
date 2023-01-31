@@ -19,3 +19,6 @@ Route::post('auth/login', [ApiTokenController::class, 'login']);
 
 //Create New Question
 Route::middleware('auth:sanctum')->post('auth/questions/create', [QuestionsController::class, 'create']);
+
+//ShowAll Questions
+Route::middleware('auth:sanctum')->get('auth/questions', [QuestionsController::class, 'showAll']);
