@@ -28,14 +28,16 @@ class QuestionsController extends Controller
             'user_id' => $request->user_id,
         ]);
 
+        //Ajout des answers
         for($i = 0; $i < count($request->answers); $i++){
-            $answers = Answers::create([
+            $answer = Answers::create([
                 'title' => $request->answers[$i],
                 'answer_id' => $i,
                 'question_id' => $question->id,
                 'nb_vote' => 0
             ]);
         }
+
 
         //STATUS 201, QUESTION CREATED
         return response()->json([
