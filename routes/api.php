@@ -19,13 +19,10 @@ Route::post('auth/signup', [ApiTokenController::class, 'signup']);
 Route::post('auth/login', [ApiTokenController::class, 'login']);
 
 //Create New Question
-Route::middleware('auth:sanctum')->post('auth/questions/create', [QuestionsController::class, 'create']);
-
-//Create Answers Relative to the question
-//Route::middleware('auth:sanctum')->post('auth/questions/create', [AnswersController::class, 'create']);
+Route::middleware('auth:sanctum')->post('questions/create', [QuestionsController::class, 'create']);
 
 //Show All Questions
-Route::middleware('auth:sanctum')->get('auth/questions', [QuestionsController::class, 'showAll']);
+Route::middleware('auth:sanctum')->get('questions', [QuestionsController::class, 'showAll']);
 
 //Vote for Answers
-Route::middleware('auth:sanctum')->post('auth/questions/{id}/answers/{id}', [AnswersController::class, 'vote']);
+Route::middleware('auth:sanctum')->post('questions/{question}/answers/{answer}', [AnswersController::class, 'vote']);

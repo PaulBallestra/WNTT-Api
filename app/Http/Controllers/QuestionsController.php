@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
-use App\Models\Questions;
-use App\Models\Answers;
+use App\Models\Question;
+use App\Models\Answer;
 
 class QuestionsController extends Controller
 {
@@ -22,7 +22,7 @@ class QuestionsController extends Controller
             'user_id' => 'required',
         ]);
 
-        $question = Questions::create([
+        $question = Question::create([
             'title' => $request->title,
             'answers' => $request->answers,
             'user_id' => $request->user_id,
@@ -30,7 +30,7 @@ class QuestionsController extends Controller
 
         //Ajout des answers
         for($i = 0; $i < count($request->answers); $i++){
-            $answer = Answers::create([
+            $answer = Answer::create([
                 'title' => $request->answers[$i],
                 'answer_id' => $i,
                 'question_id' => $question->id,
@@ -60,7 +60,7 @@ class QuestionsController extends Controller
     public function showAll()
     {
         //401 UNAUTHENTICATED GÉRÉ PAR SANCTUM
-        $questions = Questions::orderBy('created_at', 'DESC')->get();
+        $questions = Question::orderBy('created_at', 'DESC')->get();
 
         return response()->json([
             'questions' => $questions

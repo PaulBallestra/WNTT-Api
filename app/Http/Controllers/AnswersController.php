@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Models\User;
-use App\Http\Models\Answers;
+
+use App\Models\Answer;
 
 class AnswersController extends Controller
 {
-    //
-    public function create(Request $request)
+    public function vote(Request $request, $question, $answer)
     {
-        $request->validate([
-            'answers' => 'required|array|min:2|max:5'
-        ]);
+        $fanswer = Answer::where('question_id', $question)->where('answer_id', $answer)->first();
+
+        return response()->json([
+            'answer' => $fanswer
+        ], 201);
     }
 }
