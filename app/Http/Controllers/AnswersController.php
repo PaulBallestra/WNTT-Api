@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Answer;
-use App\Models\Question;
 use App\Models\Vote;
 
 class AnswersController extends Controller
@@ -15,7 +14,7 @@ class AnswersController extends Controller
         //401 SANCTUM
 
         //Check si la reponse et la question existent
-        if(!Question::where('id', $question)->exists() || !Answer::where('answer_id', $answer)->exists()){
+        if(!Answer::where('answer_id', $answer)->where('question_id', $question)->exists()){
             return response()->json([
                 'errors' => "Le vote n'a pas été pris en compte."
             ], 404);
