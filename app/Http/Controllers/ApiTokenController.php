@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+
+use App\Models\User;
+use App\Models\Vote;
 
 class ApiTokenController extends Controller
 {
@@ -72,6 +74,32 @@ class ApiTokenController extends Controller
             'user' => $user
         ], 200);
 
+    }
+
+    //DESTROY DE L'USER
+    public function destroy(Request $request)
+    {
+        //401 SANCTUM UNAUTHENTICATED
+
+        //400 si l'user n'existe pas
+        if(!User::where('id', $request->user()->id)->exists()){
+            return response()->json([
+                'errors' => "L'user n'existe pas.",
+            ], 400);
+        }
+
+        //Suppresion des votes de l'user
+        Vote::where('user_id', $request->user()->id)->delete();
+        
+        //Suppresion du token
+        $request->user()->tokens()->delete();
+
+        //Suppresion de l'user
+        User::where('id', $request->user()->id)->first()->delete();
+
+        return response()->json([
+            'log' => "User supprimé.",
+        ], 200);
     }
 
 }

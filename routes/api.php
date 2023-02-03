@@ -18,6 +18,9 @@ Route::post('auth/signup', [ApiTokenController::class, 'signup']);
 //Login
 Route::post('auth/login', [ApiTokenController::class, 'login']);
 
+//Destroy User
+Route::middleware('auth:sanctum')->post('auth/destroy', [ApiTokenController::class, 'destroy']);
+
 //Create New Question
 Route::middleware('auth:sanctum')->post('questions/create', [QuestionsController::class, 'create']);
 

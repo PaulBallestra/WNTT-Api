@@ -114,7 +114,6 @@ class QuestionsController extends Controller
             $i++;
         }
 
-
         return response()->json([
             'infos' => $infos
         ], 201);
