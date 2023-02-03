@@ -14,7 +14,6 @@ class Answer extends Model
         'title',
         'answer_id',
         'question_id',
-        'nb_vote'
     ];
 
     public function questions()

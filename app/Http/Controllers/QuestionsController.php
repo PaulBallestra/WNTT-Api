@@ -28,13 +28,14 @@ class QuestionsController extends Controller
             'user_id' => $request->user_id,
         ]);
 
+        $answers = array();
+        
         //Ajout des answers
         for($i = 0; $i < count($request->answers); $i++){
-            $answer = Answer::create([
+            $answers[$i] = Answer::create([
                 'title' => $request->answers[$i],
                 'answer_id' => $i,
                 'question_id' => $question->id,
-                'nb_vote' => 0
             ]);
         }
 
@@ -45,7 +46,7 @@ class QuestionsController extends Controller
             'created_at' => $question->created_at,
             'updated_at' => $question->updated_at,
             'title' => $question->title,
-            'answers' => $question->answers,
+            'answers' => $answers,
             'user' => [
                 'id' => $request->user()->id,
                 'created_at' => $request->user()->created_at,

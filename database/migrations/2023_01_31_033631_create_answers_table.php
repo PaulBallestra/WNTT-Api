@@ -14,7 +14,6 @@ class CreateAnswersTable extends Migration
             $table->text('title');
             $table->integer('answer_id');
             $table->foreignId('question_id')->references('id')->on('questions')->constrained()->onDelete('cascade');
-            $table->integer('nb_vote');
             $table->timestamps();
 
         });

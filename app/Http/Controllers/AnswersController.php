@@ -12,6 +12,12 @@ class AnswersController extends Controller
     {
         $fanswer = Answer::where('question_id', $question)->where('answer_id', $answer)->first();
 
+        $fanswer->vote()->create([
+            'user_id' => $request->user()->id,
+            'question_id' => $question,
+            'answer_id' => $answer
+        ]);
+
         return response()->json([
             'answer' => $fanswer
         ], 201);
