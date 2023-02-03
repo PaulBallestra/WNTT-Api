@@ -21,6 +21,9 @@ Route::post('auth/login', [ApiTokenController::class, 'login']);
 //Create New Question
 Route::middleware('auth:sanctum')->post('questions/create', [QuestionsController::class, 'create']);
 
+//Delete Question
+Route::middleware('auth:sanctum')->delete('questions/{id}', [QuestionsController::class, 'delete']);
+
 //Show All Questions
 Route::middleware('auth:sanctum')->get('questions', [QuestionsController::class, 'showAll']);
 

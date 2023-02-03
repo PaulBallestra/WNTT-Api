@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Question;
 use App\Models\Answer;
+use App\Models\Vote;
 
 class QuestionsController extends Controller
 {
@@ -54,6 +55,44 @@ class QuestionsController extends Controller
                 'username' => $request->user()->username
             ]
         ], 201);
+
+    }
+
+    //Delete Question
+    public function delete(Request $request, $id)
+    {
+        //401 SANCTUM
+        
+        //Check de la question (404)
+        if(!Question::where('id', $id)->exists()){
+            return response()->json([
+                'errors' => "La question n'existe pas"
+            ], 404);
+        }
+
+        //Recuperation de la tache
+        $question = Question::where('id', $id)->first();
+
+        //Verif si c'est la question de l'user (403)
+        if($question->user_id !== $request->user()->id){
+            return response()->json([
+                'errors' => "Accès à la question non autorisé."
+            ], 403);
+        }
+
+        //Delete des votes reliés a la question
+        Vote::where('question_id', $id)->delete();
+
+        //Delete de la question
+        Question::where('id', $id)->first()->delete();
+
+        return response()->json([
+            'id' => $question->id,
+            'created_at' => $question->created_at,
+            'updated_at' => $question->updated_at,
+            'title' => $question->title,
+            'answers' => $question->answers,
+        ], 200); 
 
     }
 
