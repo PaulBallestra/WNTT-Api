@@ -66,7 +66,7 @@ class QuestionsController extends Controller
         //Check de la question (404)
         if(!Question::where('id', $id)->exists()){
             return response()->json([
-                'errors' => "La question n'existe pas"
+                'errors' => "La question n'existe pas."
             ], 404);
         }
 

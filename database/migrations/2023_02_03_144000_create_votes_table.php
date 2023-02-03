@@ -13,8 +13,8 @@ class CreateVotesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('user_id');
-            $table->foreignId('question_id')->references('id')->on('questions');
-            $table->foreignId('answer_id')->references('id')->on('answers');
+            $table->integer('question_id');
+            $table->integer('answer_id');
             $table->morphs('votable');
         });
     }
