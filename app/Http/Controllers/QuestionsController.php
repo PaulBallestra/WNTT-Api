@@ -100,10 +100,23 @@ class QuestionsController extends Controller
     public function showAll()
     {
         //401 UNAUTHENTICATED GÉRÉ PAR SANCTUM
+
+        $infos = array();
+        $i = 0;
+
         $questions = Question::orderBy('created_at', 'DESC')->get();
 
+        foreach($questions as $q){
+            $infos[$i] = [
+                'question' => $q,
+                'nb_votes' => Vote::where('question_id', $q->id)->get()->count()
+            ];
+            $i++;
+        }
+
+
         return response()->json([
-            'questions' => $questions
+            'infos' => $infos
         ], 201);
     }
 }
