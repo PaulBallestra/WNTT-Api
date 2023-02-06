@@ -23,10 +23,13 @@ class QuestionsController extends Controller
             'user_id' => 'required',
         ]);
 
+        //Check de la category
+
         $question = Question::create([
             'title' => $request->title,
             'answers' => $request->answers,
             'user_id' => $request->user_id,
+            'category_id' => $request->category_id
         ]);
 
         $answers = array();
@@ -48,6 +51,7 @@ class QuestionsController extends Controller
             'updated_at' => $question->updated_at,
             'title' => $question->title,
             'answers' => $answers,
+            'category_id' => $question->category_id,
             'user' => [
                 'id' => $request->user()->id,
                 'created_at' => $request->user()->created_at,

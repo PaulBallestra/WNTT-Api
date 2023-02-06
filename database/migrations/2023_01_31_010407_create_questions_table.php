@@ -14,6 +14,7 @@ class CreateQuestionsTable extends Migration
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->text('title');
             $table->json('answers');
+            $table->integer('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }
